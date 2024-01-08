@@ -74,3 +74,18 @@ class MatchingEquationParts(Scene):
 		self.wait(0.5)
 		self.play(TransformMatchingTex(eq2, eq3))
 		self.wait(0.5)
+
+class UnderstandingCodeClass(Scene):
+	def construct:
+		code1 = '''from manim import Scene, Square
+
+					class FadeInSquare(Scene):
+						def construct(self):
+							s = Square()
+							self.play(FadeIn(s))
+							self.play(s.animate.scale(2))
+							self.wait()
+					'''
+
+		render_code1 = Code(code=code1, tab_width=4, background='window',language="Python", font="Monospace")
+		self.add(render_code1)
