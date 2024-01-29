@@ -40,8 +40,8 @@ class Seeing_the_change(ThreeDScene):
       dir2 = Arrow3D(start=[0,0,0],end=[1.96,0.42,0],color=YELLOW)
       dir3 = Arrow3D(start=[0,0,0],end=[1.83,0.81,0],color=RED)
       dir4 = Arrow3D(start=[0,0,0],end=[1.62,1.18,0],color=BLUE)
-      circle0 = Circle(radius=2,color=RED,arc_center=[0,0,1], normal_vector=[1,0,0])
-      circle1 = Circle(radius=0.5,color=BLUE,normal_vector=[0,0,1])
+      circle0 = Circle(radius=2,color=RED)
+      circle1 = Circle(radius=0.5,color=BLUE)
       values_x = ValueTracker(dot.get_center()[0])
       values_y = ValueTracker(dot.get_center()[1])
       values_z = ValueTracker(dot.get_center()[2])
@@ -82,7 +82,14 @@ class Seeing_the_change(ThreeDScene):
       print("values_x_array",self.values_x_array)
       print("values_y_array",self.values_y_array)
       print("values_z_array",self.values_z_array)
-      
+
+      #store values of array in file:
+      file = open("Values_x_y_z.txt",'w')
+      for i in range(0,len(self.values_x_array)):
+         entry = str(i) +" "+ str(self.values_x_array[i]) +"-" + str(self.values_y_array[i]) +"-"+ str(self.values_z_array[i]) +"\n"
+         file.write(entry)
+
+      file.close()
       def circle_change(y):
          y.become(toOrient(y,[self.values_x_array[self.realtracker],self.values_y_array[self.realtracker],self.values_z_array[self.realtracker]],[self.values_x_array[self.realtracker+1],self.values_y_array[self.realtracker+1],self.values_z_array[self.realtracker+1]],perpend=True))
          self.realtracker=self.realtracker+1
