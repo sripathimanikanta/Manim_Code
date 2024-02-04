@@ -1,0 +1,3 @@
+# This file is used internally by FFMPEG.
+file 'file:E:/Manim/Manim_test/Manim_Testing_code/Playing_with_cairo/my_animations/media/videos/how_cairo_sees_the_cordinates/480p15/partial_movie_files/Cairo_sees/1185818338_1207224369_2161764262.mp4'
+file 'file:E:/Manim/Manim_test/Manim_Testing_code/Playing_with_cairo/my_animations/media/videos/how_cairo_sees_the_cordinates/480p15/partial_movie_files/Cairo_sees/624642324_1733944848_2356795748.mp4'
