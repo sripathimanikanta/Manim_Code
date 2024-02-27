@@ -1,10 +1,10 @@
 from manim import *
 
-class BubbleSortAnime(Scene):
+class InsertionSortAnime(Scene):
 	"""docstring for BubbleSortAnime"""
 	def construct(self):
-		# arr =  [12,20,15,29,10,14]
-		arr =  [13,20,7,28,3,8]
+		arr =  [12,20,15,29,10,14]
+		# arr =  [13,20,7,28,3,8]
 		positionX = 3.0
 		positionY = 3.0
 		sl = 1.0
@@ -30,17 +30,15 @@ class BubbleSortAnime(Scene):
 		# self.play(Write(y),Write(y_num))
 		self.add(vg)
 
-		coded = """def bubbleSortQE(arr):
+		coded = """def InsertionSortAnime(arr):
 	n=len(arr)
-	for i in range(n-1):
-		# swapped = False
-		for j in range(n-i-1):
-			if arr[j] > arr[j+1]:
-				a[j], a[j+1] = a[j+1], a[j]
-			# swapped = True
-
-		# if not swapped:
-			# break;
+	for i in range(1, n):
+		key = arr[i]
+		j = i - 1
+		while j>=0 and arr[j] > key:
+			arr[j+1] = arr[j]
+			j -= 1
+		arr[j + 1] = key
 """
 		codes = Code(code=coded, 
 					language="Python",
@@ -53,7 +51,7 @@ class BubbleSortAnime(Scene):
 
 		########## static style:
 		self.wait(2)
-		for y in range(0, len(vg)-1):
+		for y in range(1, len(vg)):
 			iter1 = Text(f"{y+1} Iteration", t2c={'[:1]':'#5CD0B3'}).next_to(vg, DOWN)
 			self.add(iter1)
 			self.play(codes.code[2].animate.set_opacity(1))
@@ -108,9 +106,6 @@ class BubbleSortAnime(Scene):
 					vg[x+1][0].animate.set_fill(opacity=0)
 					)
 				vg[x][0].set_fill(opacity=0)
-			self.play(
-				vg[len(vg)-1-y][0].animate.set_fill("RED", opacity=0.8)
-				)
 			if y != len(vg)-2:
 				self.remove(iter1)
 		self.wait()

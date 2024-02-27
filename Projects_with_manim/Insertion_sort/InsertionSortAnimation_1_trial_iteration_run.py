@@ -1,7 +1,7 @@
 from manim import *
 
-class BubbleSortAnime(Scene):
-	"""docstring for BubbleSortAnime"""
+class InsertionSortAnime(Scene):
+	"""docstring for InsertionSortAnime"""
 	def construct(self):
 		# arr =  [12,20,15,29,10,14]
 		arr =  [13,20,7,28,3,8]

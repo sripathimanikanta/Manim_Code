@@ -52,6 +52,9 @@ class BubbleSortAnime(Scene):
 					vg[x][0].animate.set_fill(opacity=0),
 					vg[x+1][0].animate.set_fill(opacity=0)
 					)
+			self.play(
+				vg[len(vg)-1-y][0].animate.set_fill("RED", opacity=0.8)
+				)
 			if y != len(vg)-2:
 				self.remove(iter1)
 		self.wait()

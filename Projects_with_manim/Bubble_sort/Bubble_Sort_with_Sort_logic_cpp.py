@@ -30,67 +30,62 @@ class BubbleSortAnime(Scene):
 		# self.play(Write(y),Write(y_num))
 		self.add(vg)
 
-		coded = """def bubbleSortQE(arr):
-	n=len(arr)
-	for i in range(n-1):
-		# swapped = False
-		for j in range(n-i-1):
-			if arr[j] > arr[j+1]:
-				a[j], a[j+1] = a[j+1], a[j]
-			# swapped = True
-
-		# if not swapped:
-			# break;
+		coded = """void bubbleSort(int arr[], int n)
+{
+	int i, j;
+	bool swapped;
+	for (i = 0; i < n - 1; i++) {
+		for (j = 0; j < n - i - 1; j++) {
+			if (arr[j] > arr[j + 1]) {
+			// swap logic
+				int temp = arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1]= temp
+			}
+		}
+	}
+}
 """
 		codes = Code(code=coded, 
-					language="Python",
+					language="cpp",
 					tab_width=4,
 					style=Code.styles_list[13],
 					background = "window",
 					background_stroke_color=ManimColor('#FFFFFF'))
-		codes.code.set_opacity(0.5)
+		codes.code.set_opacity(0.3)
 		self.play(Write(codes.move_to(LEFT*(positionY-3)+UP*(-positionY+1.5))))
 
 		########## static style:
+		self.play(codes.code[0].animate.set_opacity(1))
 		self.wait(2)
 		for y in range(0, len(vg)-1):
 			iter1 = Text(f"{y+1} Iteration", t2c={'[:1]':'#5CD0B3'}).next_to(vg, DOWN)
 			self.add(iter1)
-			self.play(codes.code[2].animate.set_opacity(1))
-			#### 1st iteration:
+			self.play(codes.code[4].animate.set_opacity(1))
+
+			#### iteration:
 			for x in range(0, len(vg)-1-y):
 				self.play(
-					codes.code[2].animate.set_opacity(0.5),
-					codes.code[4].animate.set_opacity(1),
+					codes.code[4].animate.set_opacity(0.3),
+					codes.code[5].animate.set_opacity(1),
 					vg[x][0].animate.set_fill("MAROON", opacity=0.5),
 					# vg[x+1][0].animate.set_fill("PINK", opacity=0.5)
 					)
 				vg[x][0].set_fill("MAROON", opacity=0.5)
-				# self.play(
-				# 	listing.code[2].animate.set_opacity(0.5),
-				# 	listing.code[3].animate.set_opacity(1),
-				# 	)
+
 				self.play(
-					codes.code[4].animate.set_opacity(0.5),
-					codes.code[5].animate.set_opacity(1),
+					codes.code[5].animate.set_opacity(0.3),
+					codes.code[6].animate.set_opacity(1),
 					vg[x+1][0].animate.set_fill("MAROON", opacity=0.5)
 					)
-				# self.play(
-				# 	# codes.code[2].animate.set_opacity(0.5),
-				# 	codes.code[4].animate.set_opacity(0.5),
-				# 	# vg[x+1][0].animate.set_fill("PINK", opacity=0.5)
-				# 	)
-				# self.play(
-				# 	codes.code[4].animate.set_opacity(0.5),
-				# 	codes.code[5].animate.set_opacity(1),
-				# 	vg[x][0].animate.set_fill("PINK", opacity=0.5),
-				# 	vg[x+1][0].animate.set_fill("PINK", opacity=0.5)
-				# 	)
-				self.play(codes.code[5].animate.set_opacity(0.5))
+
+				self.play(codes.code[6].animate.set_opacity(0.3))
 				if vg[x][1].number > vg[x+1][1].number:
 					self.play(
 						# codes.code[5].animate.set_opacity(0.5),
-						codes.code[6].animate.set_opacity(1)
+						codes.code[8].animate.set_opacity(1),
+						codes.code[9].animate.set_opacity(1),
+						codes.code[10].animate.set_opacity(1)
 					)
 					self.play(
 						MoveAlongPath(vg[x], ArcBetweenPoints(vg[x].get_center(),vg[x+1].get_center()), rate_func=linear),
@@ -100,17 +95,17 @@ class BubbleSortAnime(Scene):
 					vg[x] = vg[x+1]
 					vg[x+1] = temp
 					self.play(
-						codes.code[6].animate.set_opacity(0.5),
+						codes.code[8].animate.set_opacity(0.3),
+						codes.code[9].animate.set_opacity(0.3),
+						codes.code[10].animate.set_opacity(0.3),
 						# listing.code[7].animate.set_opacity(1)
 					)
+
 				self.play(
 					vg[x][0].animate.set_fill(opacity=0),
 					vg[x+1][0].animate.set_fill(opacity=0)
 					)
 				vg[x][0].set_fill(opacity=0)
-			self.play(
-				vg[len(vg)-1-y][0].animate.set_fill("RED", opacity=0.8)
-				)
 			if y != len(vg)-2:
 				self.remove(iter1)
 		self.wait()
