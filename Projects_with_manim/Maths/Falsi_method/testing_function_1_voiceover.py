@@ -60,19 +60,19 @@ class testing_func(MovingCameraScene,VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        with self.voiceover(text=f"point A({b1},{round(func(b1),4)})")as tracker:
+        with self.voiceover(text=f"point B({b1},{round(func(b1),4)})")as tracker:
             self.play(
                 Write(VGroup(Dot2,text2)),
                 run_time=tracker.duration
             )
 
-        with self.voiceover(text=f"point A({cp1},{round(func(cp1),4)})")as tracker:
+        with self.voiceover(text=f"point C({cp1},{round(func(cp1),4)})")as tracker:
             self.play(
                 Write(VGroup(Dot3,text3)),
                 run_time=tracker.duration
             )
 
-        with self.voiceover(text=f"point A({dp1},{round(func(dp1),4)})")as tracker:
+        with self.voiceover(text=f"point D({dp1},{round(func(dp1),4)})")as tracker:
             self.play(
                 Write(VGroup(Dot4,text4)),
                 run_time=tracker.duration
@@ -91,22 +91,32 @@ class testing_func(MovingCameraScene,VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        linebtw = DoubleArrow(Dot3.get_center(),Dot2.get_center()-Dot3.get_y())
+        linebtw = DoubleArrow(Dot3.get_center(),ax.coords_to_point(b1,func(cp1),0))
         linefraxestodot3 = ax.get_vertical_line(ax.input_to_graph_point(cp1, graph), color=RED)
-        linefraxestodot2 = ax.get_vertical_line((Dot2.get_center()-Dot3.get_y()), color=GREEN)
+        # print("Dot2.get_center",Dot2.get_center())
+        # print("Dot2.get_y",Dot2.get_y())
+        # print("Dot2.get_y",ax.coords_to_point(Dot2.get_y()))
+        linefraxestodot2 = ax.get_vertical_line(ax.coords_to_point(b1,func(cp1),0), color=GREEN)
+        # print("with raw",[b1,-func(b1)+func(cp1),0])
+        # print("with raw with coodinates",ax.coords_to_point(b1,-func(b1)+func(cp1),0))
+        # print("with raw with coodinates with ",ax.coords_to_point(b1,func(cp1),0))
         with self.voiceover(text="are closer to each other")as tracker:
-            time = 2
+            time = 3
             self.play(
                 Create(VGroup(linefraxestodot2,linefraxestodot3)),
-                run_time=tracker.duration
+                run_time=tracker.duration/time
             )
             self.play(
                 Create(linebtw),
-                run_time=tracker.duration
+                run_time=tracker.duration/time
+            )
+            self.play(
+                FadeOut(VGroup(linefraxestodot2,linefraxestodot3,linebtw)),
+                run_time=tracker.duration/time
             )
 
-        rectop = Rectangle(color=BLUE,height=config.frame_height/2,width=config.frame_width).set_opacity(0.5).next_to(ax.get_center(),UP*0.1)
-        recbottom = Rectangle(color=RED,height=config.frame_height/2,width=config.frame_width).set_opacity(0.5).next_to(ax.get_center(),DOWN*0.1)
+        rectop = Rectangle(color=BLUE,height=config.frame_height/2,width=config.frame_width).set_opacity(0.5).next_to(ax.coords_to_point(0.5,0,0),UP*0.1)
+        recbottom = Rectangle(color=RED,height=config.frame_height/1.5,width=config.frame_width).set_opacity(0.5).next_to(ax.coords_to_point(0.5,0,0),DOWN*0.1)
         with self.voiceover(text="and they are on different sides of x-axis")as tracker:
             time = 4
             self.play(
@@ -129,7 +139,7 @@ class testing_func(MovingCameraScene,VoiceoverScene):
         x = 0.3707
         xdot = Dot(ax.coords_to_point(x,0))
         xtext = Text(f"(x,0)").scale(0.5).next_to(xdot,UP*1)
-        with self.voiceover(text=f"point A({dp1},{round(func(dp1),4)})")as tracker:
+        with self.voiceover(text="As we can see ")as tracker:
             self.play(
                 Write(VGroup(xdot,xtext))
             )
